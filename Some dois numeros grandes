@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+int main()
+{
+    char num_1[10000];
+    char num_2[10000];
+    int resultado[10000];
+    long int i;
+    int k;
+    int carryin = 0;
+    int res, flag;
+    scanf("%s",num_1);
+    scanf("%s",num_2);
+    long int t1 = strlen(num_1);
+    long int t2 = strlen(num_2);
+    long int tamanho1 = strlen(num_1) -1;
+    long int tamanho2 = strlen(num_2) -1;
+    i =0;
+    while(1)
+    {
+        if (t1 > t2)
+        {
+            if (tamanho1 >= 0)
+            {
+                if (tamanho2 < 0)
+                    res = (num_1[tamanho1] - '0')+ 0 + carryin;
+                else
+                    res = (num_1[tamanho1] - '0')+ (num_2[tamanho2] - '0') + carryin;
+            }
+            else
+            {
+                flag = 1;
+                if (carryin == 1)
+                {
+                    i +=1;
+                    resultado[i-1] = 1;
+                }
+            }
+        }
+        if (t2 > t1)
+        {
+            if (tamanho2 >= 0)
+            {
+                if (tamanho1 < 0)
+                    res = (num_2[tamanho2] - '0')+ 0 + carryin;
+                else
+                    res = (num_2[tamanho2] - '0')+ (num_1[tamanho1] - '0') + carryin;
+            }
+            else
+            {
+                flag = 1;
+                if (carryin == 1)
+                {
+                    i +=1;
+                    resultado[i-1] = 1;
+                }
+            }
+        }
+        if (t1 == t2)
+        {
+            if (tamanho1 >=0)
+                res = (num_1[tamanho1] - '0')+ (num_2[tamanho2] - '0') + carryin;
+            else
+            {
+                flag = 1;
+                if (carryin == 1)
+                {
+                    i +=1;
+                    resultado[i-1] = 1;
+                }
+            }
+        }
+        if (flag == 1)
+        {
+            for (k = i-1; k>-1;k--)
+                printf("%d",resultado[k]);
+            break;
+        }
+        if (res >= 10)
+            carryin = res/10;
+        else
+            carryin = 0;
+        resultado[i] = res%10;
+        i+=1;
+        tamanho1 = tamanho1 -1;
+        tamanho2 = tamanho2 -1;
+    }
+    printf("\n");
+    return 0;
+}
